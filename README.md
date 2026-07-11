@@ -1,2 +1,18 @@
-# portfolio-persian
-Persian portfolio showcasing software architecture projects and technical work.
+# نمونه‌کارهای مهلا تقی مصلح 👋
+
+سلام.
+
+این صفحه نسخه فارسی نمونه‌کارهای من است.
+
+در این صفحه به‌تدریج توضیحات کامل پروژه‌ها، تصاویر، ویدئوها و مستندات فنی قرار می‌گیرد.
+
+## پروژه‌ها
+
+- 🚀 Nexus
+- 📚 stellaLIB
+- 📈 Algorithmic Trading Framework
+- ✅ DailyFlow
+
+---
+
+در حال تکمیل...
