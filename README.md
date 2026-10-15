@@ -123,15 +123,8 @@
 *پایش وضعیت فایل‌های ورودی و صف بررسی داده‌ها در هر مدرسه*
 ![School Intake Dashboard](https://raw.githubusercontent.com/mahla-sys/Excel_import/main/docs/school-intake-dashboard.png)
 
-#### ۲. موتور نگاشت هوشمند ستون‌ها (Smart Column Mapping)
-*تشخیص خودکار ستون‌های همنام (کد ملی دانش‌آموز، پدر، مادر) بر اساس موقعیت مکانی*
-![Smart Column Mapping](https://raw.githubusercontent.com/mahla-sys/Excel_import/main/docs/smart-column-mapping.png)
 
-#### ۳. اعتبارسنجی و دسته‌بندی داده‌های استخراج‌شده
-*خروجی پایپ‌لاین: تفکیک خودکار رکوردهای معتبر و ناقص بدون حذف داده خام*
-![Student Extraction Validation](https://raw.githubusercontent.com/mahla-sys/Excel_import/main/docs/student-extraction-validation.png)
-
-#### ۴. مدیریت Batchها و تاریخچه آپلود
+#### 2. مدیریت Batchها و تاریخچه آپلود
 *رهگیری فایل‌های آپلود شده در سال‌های تحصیلی مختلف*
 ![Batch Management History](https://raw.githubusercontent.com/mahla-sys/Excel_import/main/docs/batch-management-history.png)
 
@@ -148,6 +141,8 @@
 - **مهار خطای سطری با Savepoint:** استفاده از `transaction.savepoint()` به‌ازای هر سطر؛ اگر سطر ۴۰۰۰ خراب باشد، فقط همان سطر وضعیت خطا می‌گیرد و کل فایل رول‌بک نمی‌شود.  
 - **سیاست عدم ادغام خودکار (Zero Auto-Merge Policy):** سیستم هرگز دو رکورد همنام یا مشابه را خودسر ادغام نمی‌کند؛ بلکه مسئول مدرسه باید با ثبت دلیل، وضعیت تکرار یا تفکیک را مشخص کند.  
 - **امنیت در اکسپورت:** پیشوندگذاری مقادیر با تک‌کوتیشن جهت جلوگیری از حملات تزریق فرمول (CSV/Formula Injection) در اکسل اداری، همراه با کوکی‌های امن HttpOnly و Double-Submit CSRF.
+
+---
 ## 🏛 ۳. سامانه هسته مجتمع مدارس (Two-Tier RBAC Core) <a id="school-core"></a>
 
 **طراحی معماری هسته مدیریت آموزشی برای ۷ مدرسه و افق ۱۰,۰۰۰ کاربر**
@@ -156,18 +151,26 @@
 - **مقیاس:** ۱۰,۰۰۰ خط کد کل سیستم + ۳,۰۰۰ خط مستندات رسمی  
 - **مستندسازی:** ۲۵ سند معماری ثبت‌شده (ADR) + ماتریس رهگیری ۶۴ ریسک و آسیب‌پذیری
 
+### 🖼 نمای محیط پروژه (Screenshots)
+
+#### ۱. داشبورد مدیر (نمای کلی)
+*پایش آمار حضور و غیاب، اطلاعیه‌های اخیر و وضعیت سلامت سیستم*
+![Principal Dashboard](https://raw.githubusercontent.com/mahla-sys/school-system/main/docs/principal-dashboard-overview.png)
+
+#### ۲. ماژول حضور و غیاب (نقش معلم)
+*ثبت روزانه وضعیت حاضر، غایب و تاخیر برای دانش‌آموزان کلاس با قابلیت به‌روزرسانی آنی*
+![Teacher Attendance Panel](https://raw.githubusercontent.com/mahla-sys/school-system/main/docs/teacher-attendance-panel.png)
+
+#### ۳. ماژول اطلاعیه‌ها (نقش مدیر)
+*ایجاد اطلاعیه با اولویت‌بندی، سنجاق به بالا و مخاطب‌بندی کل مدرسه یا کلاس خاص*
+![Principal Announcements Module](https://raw.githubusercontent.com/mahla-sys/school-system/main/docs/principal-announcements-module.png)
+
+#### ۴. داشبورد دانش‌آموز (ایزولیشن داده)
+*نمای دانش‌آموز از اطلاعیه‌های کلاسی و سوابق حضور و غیاب شخصی (Scope Enforcement)*
+![Student Dashboard](https://raw.githubusercontent.com/mahla-sys/school-system/main/docs/student-dashboard-announcements.png)
+
 ### ❓ چالش اصلی: نشت اطلاعات میان مدارس (IDOR)
-در یک مجتمع آموزشی با ۷ شعبه، اگر معلم یک مدرسه فقط با داشتن پرمیشن عمومی «مشاهده کلاس» بتواند با تغییر ID در مرورگر، کلاس مدرسه دیگری را ببیند، نشت اطلاعاتی رخ می‌دهد.
-
-### 🛡 نوآوری‌های معماری هسته
-- **سیستم کنترل دسترسی دو لایه (Two-Tier RBAC):**  
-  - **لایه اول (Enforcement در سطح اکشن):** بررسی سریع اینکه آیا کاربر اجازه انجام این کار را دارد (`has_permission`).  
-  - **لایه دوم (Enforcement در سطح رکورد دیتابیس):** موتور اختصاصی `scoped_queryset` در لایه ORM کوئری‌های داینامیک می‌سازد و دید کاربر را دقیقاً به مدرسه، پایه یا کلاس مجاز خودش محدود می‌کند؛ حذف قطعی باگ‌های دسترسی غیرمجاز به رکوردها (Anti-IDOR).  
-- **اعتبارسنجی حوزه در نوشتن (Write-Scope Validation):** بررسی اعتبار شناسه‌های والد در رکوئست‌های ارسالی قبل از متد ذخیره؛ اگر کسی ID کلاسی در مدرسه‌ای دیگر را در متد POST بفرستد، خطای 403 صادر می‌شود.  
-- **تفکیک قطعی Person از User:** دانش‌آموز پایه هفتم هویت و کارنامه دارد (`Person`) اما لزوماً ایمیل و اکانت فعال لاگین ندارد (`User`). سوابق تحصیلی چندساله به موجودیت مستقل `Enrollment` وصل شدند تا تاریخچه آموزشی دانش‌آموز در تغییر پایه‌ها بدون تداخل باقی بماند.
-
 ---
-
 ## 🚀 ۴. NEXUS | پلتفرم هوشمند طراحی معماری نرم‌افزار <a id="nexus"></a>
 
 **پلتفرم هوشمند طراحی معماری نرم‌افزار با هوش مصنوعی**  
