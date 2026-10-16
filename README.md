@@ -146,23 +146,24 @@
 - **مقیاس:** ۱۰,۰۰۰ خط کد کل سیستم + ۳,۰۰۰ خط مستندات رسمی  
 - **مستندسازی:** ۲۵ سند معماری ثبت‌شده (ADR) + ماتریس رهگیری ۶۴ ریسک و آسیب‌پذیری
 
-### 🖼 نمای محیط پروژه (Screenshots)
+## 🖼 نمای محیط پروژه (Screenshots)
 
 #### ۱. داشبورد مدیر (نمای کلی)
 *پایش آمار حضور و غیاب، اطلاعیه‌های اخیر و وضعیت سلامت سیستم*
-![Principal Dashboard](https://raw.githubusercontent.com/mahla-sys/school-system/main/docs/principal-dashboard-overview.png)
+![Principal Dashboard](principal-dashboard-overview.png)
 
 #### ۲. ماژول حضور و غیاب (نقش معلم)
 *ثبت روزانه وضعیت حاضر، غایب و تاخیر برای دانش‌آموزان کلاس با قابلیت به‌روزرسانی آنی*
-![Teacher Attendance Panel](https://raw.githubusercontent.com/mahla-sys/school-system/main/docs/teacher-attendance-panel.png)
+![Teacher Attendance Panel](teacher-attendance-panel.png)
 
 #### ۳. ماژول اطلاعیه‌ها (نقش مدیر)
 *ایجاد اطلاعیه با اولویت‌بندی، سنجاق به بالا و مخاطب‌بندی کل مدرسه یا کلاس خاص*
-![Principal Announcements Module](https://raw.githubusercontent.com/mahla-sys/school-system/main/docs/principal-announcements-module.png)
+![Principal Announcements Module](principal-announcements-module.png)
 
 #### ۴. داشبورد دانش‌آموز (ایزولیشن داده)
 *نمای دانش‌آموز از اطلاعیه‌های کلاسی و سوابق حضور و غیاب شخصی (Scope Enforcement)*
-![Student Dashboard](https://raw.githubusercontent.com/mahla-sys/school-system/main/docs/student-dashboard-announcements.png)
+![Student Dashboard](student-dashboard-announcements.png)
+
 
 ### ❓ چالش اصلی: نشت اطلاعات میان مدارس (IDOR)
 در یک مجتمع آموزشی با ۷ شعبه، اگر معلم یک مدرسه فقط با داشتن پرمیشن عمومی «مشاهده کلاس» بتواند با تغییر ID در مرورگر، کلاس مدرسه دیگری را ببیند، نشت اطلاعاتی رخ می‌دهد.
