@@ -4,7 +4,7 @@
 سلام من مهلا هستم.  
 این صفحه گزارش مستند، فنی و صادقانه از سیستم‌هایی است که طراحی کرده‌ام، باگ‌هایی که در محیط واقعی پروداکشن حل کرده‌ام، و پروژه‌هایی که توسعه داده‌ام.
 
-تمرکز من روی **معماری سیستم‌هایی با وابستگی کم (Decoupled)**، **طراحی جریان‌های رویدادمحور (Event-Driven)**،  طراحی ETL و یکپارچه‌سازی داده و نجات سیستم‌های پروداکشن هست.
+تمرکز من روی **معماری سیستم‌هایی با وابستگی کم (Decoupled)**، **طراحی جریان‌های رویدادمحور (Event-Driven)**، طراحی ETL و یکپارچه‌سازی داده و نجات سیستم‌های پروداکشن است.
 
 > 📊 **کارنامه در یک نگاه:**  
 > **۶۰,۰۰۰+ خط کد معماری‌شده** | **۷ سامانه مستقل** | **۳ پرونده نجات اضطراری پروداکشن** | **۳۵۰+ تست خودکار سبز** | **۷۰+ سند تصمیم‌گیری معماری (ADR)**
@@ -20,7 +20,6 @@
 
 ---
 
-
 ## 📑 فهرست پروژه‌ها
 
 - 🌌 **[۱. Living Canvas | اکوسیستم ارکستریشن چندعاملی هوش مصنوعی](#living-canvas)**  
@@ -33,6 +32,7 @@
 - 🛠 **[۸. سوابق عیب‌یابی بحرانی و اورژانس پروداکشن (Forensic Debugging)](#forensic-cases)**
 
 ---
+
 ## 🌌 ۱. Living Canvas | اکوسیستم ارکستریشن چندعاملی هوش مصنوعی <a id="living-canvas"></a>
 
 **طراحی بستر اجرای عامل‌های خودمختار روی معماری تخته‌سیاه (Blackboard)**
@@ -45,17 +45,11 @@
 
 #### معماری درختی و جریان اجرای پایپ‌لاین
 *پنج ایجنت مستقل با جریان داده شرطی، قفل هر نود، و دفترچه اجرای زنده (Execution Ledger)*
-
 ![Pipeline Overview & Real-Time Execution](https://raw.githubusercontent.com/mahla-sys/Living_Canvas/main/screenshots/real-time-execution.png)
-
----
 
 #### معماری فایل‌محور (File-Substrate Architecture)
 *هر نود، یال، و خاطره یک فایل متنی ساده است — بدون دیتابیس ابری، بدون جعبه سیاه*
-
 ![File-Substrate Architecture](https://raw.githubusercontent.com/mahla-sys/Living_Canvas/main/screenshots/file-substrate-architecture.png)
-
----
 
 #### تنظیمات ایجنت و قرارداد کانتکست (Context Contract)
 
@@ -63,27 +57,19 @@
 | :---: | :---: |
 | ![Agent Configuration](https://raw.githubusercontent.com/mahla-sys/Living_Canvas/main/screenshots/agent-configuration.png) | ![Context Contract](https://raw.githubusercontent.com/mahla-sys/Living_Canvas/main/screenshots/context-contract.png) |
 
----
-
 #### پشتیبانی از چندین مدل هوش مصنوعی (Multi-Model Support)
 *تعویض بین Simulator, Gemini, Mistral و DeepSeek بدون تغییر در معماری*
-
 ![Multi-Model Settings](https://raw.githubusercontent.com/mahla-sys/Living_Canvas/main/screenshots/multi-model-settings.png)
 
----
-
 ### ❓ مسئله‌ای که Living Canvas حل می‌کند
-
 فریم‌ورک‌های آماده مثل LangChain یا AutoGen پر از پیچیدگی‌های اضافه (Bloat)، کدهای تو در تو و انتزاع‌های بی‌مورد هستند که دیباگ کردن ایجنت‌ها را ناممکن می‌کنند. همچنین بیشتر ابزارها وضعیت و حافظه ایجنت‌ها را در دیتابیس‌های ابری اختصاصی قفل می‌کنند که شفافیت ندارد و امکان بازرسی تغییرات با ابزارهای سنتی مثل Git را از بین می‌برد.
 
 ### 💡 راهکار معماری
-
 سیستمی طراحی کردم که در آن **فایل‌های دیسک (Markdown/YAML) خودِ تخته‌سیاه (Blackboard) و تنها منبع حقیقت هستند** و استیت رم (Zustand) صرفاً یک کش گذرا برای نمایش بصری با ۶۰ فریم بر ثانیه است. این سیستم به هیچ سرور متمرکزی نیاز ندارد و همه فایل‌ها مستقیماً با ابزارهایی مثل Obsidian یا `git diff` قابل مشاهده و ویرایش هستند.
 
 ترتیب اجرای ایجنت‌ها توسط یک ارکستریتور اختصاصی در `src/lib/engine.ts` بر اساس تحلیل گراف جهت‌دار غیرمدور (DAG) با شاخه‌بندی‌های شرطی هدایت می‌شود.
 
 ### 🏛 قوانین پنج‌گانه تغییرناپذیر سیستم (The Five Laws)
-
 ۱. **قانون ۱ (Files are substrate):** تمام وضعیت بوم باید بتواند در هر لحظه فقط از روی فولدرهای هارد دیسک (`canvases/<id>/`) بازسازی شود.  
 ۲. **قانون ۲ (Escape before render):** پاکسازی کامل خروجی‌های هوش مصنوعی با تابع `escapeHtml()` برای جلوگیری قطعی از حملات تزریق کد (Stored XSS).  
 ۳. **قانون ۳ (Lock is execution moment, never data):** قفل نودها فقط یک متغیر موقت در حافظه هنگام اجراست و هرگز روی دیسک ذخیره نمی‌شود تا در صورت کرش، سیستم دچار بن‌بست (Deadlock) دائمی نشود.  
@@ -91,7 +77,6 @@
 ۵. **قانون ۵ (Dependencies point down):** جریان وابستگی‌ها کاملاً رو به پایین است تا احتمال به وجود آمدن وابستگی چرخه‌ای (Circular Dependency) صفر باشد.
 
 ### 🛡 مرزهای دسترسی و نظارت انسانی (Human-in-the-Loop)
-
 - **قرارداد کانتکست (Context Contract):** هر ایجنت دقیقاً مسیرهای مجاز خواندن (`allowed_read_paths`) و نوشتن (`allowed_write_paths`) مشخصی دارد تا نتواند داده‌های خارج از دامنه خود را تغییر دهد.  
 - **اعتبارسنجی شمای خروجی (Output Schema Validation):** تمام پاسخ‌های مدل قبل از نشستن روی بوم اعتبارسنجی می‌شوند.  
 - **انسان به عنوان فرمانده ناظر:** با تنظیم `require_approval: true`، فرآیند اجرای ایجنت متوقف شده و یک بنر صریح تایید روی بوم ظاهر می‌شود تا انسان تغییرات را تایید یا رد کند.
@@ -123,8 +108,7 @@
 *پایش وضعیت فایل‌های ورودی و صف بررسی داده‌ها در هر مدرسه*
 ![School Intake Dashboard](https://raw.githubusercontent.com/mahla-sys/Excel_import/main/docs/school-intake-dashboard.png)
 
-
-#### 2. مدیریت Batchها و تاریخچه آپلود
+#### ۲. مدیریت Batchها و تاریخچه آپلود
 *رهگیری فایل‌های آپلود شده در سال‌های تحصیلی مختلف*
 ![Batch Management History](https://raw.githubusercontent.com/mahla-sys/Excel_import/main/docs/batch-management-history.png)
 
@@ -143,6 +127,7 @@
 - **امنیت در اکسپورت:** پیشوندگذاری مقادیر با تک‌کوتیشن جهت جلوگیری از حملات تزریق فرمول (CSV/Formula Injection) در اکسل اداری، همراه با کوکی‌های امن HttpOnly و Double-Submit CSRF.
 
 ---
+
 ## 🏛 ۳. سامانه هسته مجتمع مدارس (Two-Tier RBAC Core) <a id="school-core"></a>
 
 **طراحی معماری هسته مدیریت آموزشی برای ۷ مدرسه و افق ۱۰,۰۰۰ کاربر**
@@ -170,7 +155,17 @@
 ![Student Dashboard](https://raw.githubusercontent.com/mahla-sys/school-system/main/docs/student-dashboard-announcements.png)
 
 ### ❓ چالش اصلی: نشت اطلاعات میان مدارس (IDOR)
+در یک مجتمع آموزشی با ۷ شعبه، اگر معلم یک مدرسه فقط با داشتن پرمیشن عمومی «مشاهده کلاس» بتواند با تغییر ID در مرورگر، کلاس مدرسه دیگری را ببیند، نشت اطلاعاتی رخ می‌دهد.
+
+### 🛡 نوآوری‌های معماری هسته
+- **سیستم کنترل دسترسی دو لایه (Two-Tier RBAC):**  
+  - **لایه اول (Enforcement در سطح اکشن):** بررسی سریع اینکه آیا کاربر اجازه انجام این کار را دارد (`has_permission`).  
+  - **لایه دوم (Enforcement در سطح رکورد دیتابیس):** موتور اختصاصی `scoped_queryset` در لایه ORM کوئری‌های داینامیک می‌سازد و دید کاربر را دقیقاً به مدرسه، پایه یا کلاس مجاز خودش محدود می‌کند؛ حذف قطعی باگ‌های دسترسی غیرمجاز به رکوردها (Anti-IDOR).  
+- **اعتبارسنجی حوزه در نوشتن (Write-Scope Validation):** بررسی اعتبار شناسه‌های والد در رکوئست‌های ارسالی قبل از متد ذخیره؛ اگر کسی ID کلاسی در مدرسه‌ای دیگر را در متد POST بفرستد، خطای 403 صادر می‌شود.  
+- **تفکیک قطعی Person از User:** دانش‌آموز پایه هفتم هویت و کارنامه دارد (`Person`) اما لزوماً ایمیل و اکانت فعال لاگین ندارد (`User`). سوابق تحصیلی چندساله به موجودیت مستقل `Enrollment` وصل شدند تا تاریخچه آموزشی دانش‌آموز در تغییر پایه‌ها بدون تداخل باقی بماند.
+
 ---
+
 ## 🚀 ۴. NEXUS | پلتفرم هوشمند طراحی معماری نرم‌افزار <a id="nexus"></a>
 
 **پلتفرم هوشمند طراحی معماری نرم‌افزار با هوش مصنوعی**  
@@ -269,7 +264,7 @@ Topology Guild
 
 ---
 
-## 📈 ۵. فریم‌ورک ماژولار معاملات الگوریتمی (معماری رادیو)
+## 📈 ۵. فریم‌ورک ماژولار معاملات الگوریتمی (معماری رادیو) <a id="algotrade"></a>
 
 فریم‌ورکی رویدادمحور برای توسعه و اجرای ربات‌های معاملاتی در بازارهای مالی که با تمرکز بر معماری نرم‌افزار، توسعه‌پذیری و جداسازی مسئولیت‌ها طراحی شده است.
 
@@ -278,6 +273,7 @@ Topology Guild
 ### 🖼 معماری سیستم
 این تصویر نمای کلی معماری پروژه و نحوه ارتباط بخش‌های مختلف سیستم را نشان می‌دهد.  
 **System Architecture Blueprint**
+![System Architecture Blueprint](https://github.com/mahla-sys/-Gold-Forex-Algorithmic-System/blob/main/InShot_20260601_200956260.jpg?raw=true)
 
 ### 📡 زیرساخت ارتباطی (Radio)
 برای ارتباط بین بخش‌های مختلف سیستم، یک لایه پیام‌رسان داخلی (Radio) مبتنی بر الگوی Pub/Sub طراحی شده است.  
@@ -285,14 +281,17 @@ Topology Guild
 
 نمونه‌ای از ساختار کد هسته رادیو (CRadio):  
 **CRadio Code Structure**
+![CRadio Code Structure](https://github.com/mahla-sys/-Gold-Forex-Algorithmic-System/blob/main/Screenshot%202026-06-01%20194031.png?raw=true)
 
 ### 📁 ساختار ماژولار پروژه
 پروژه طی نسخه‌های مختلف به صورت تدریجی بازطراحی شده تا هر قسمت مسئولیت مشخصی داشته باشد و امکان توسعه سیستم بدون ایجاد وابستگی‌های پیچیده فراهم شود.  
 **Modular File Structure**
+![Modular File Structure](https://github.com/mahla-sys/-Gold-Forex-Algorithmic-System/blob/main/Screenshot%202026-06-01%20193915.png?raw=true)
 
 ### ▶ اجرای سیستم
 تصویر زیر بخشی از اجرای پروژه در محیط MetaTrader و ثبت گزارش‌های لحظه‌ای سیستم را نمایش می‌دهد.  
 **Real-Time Execution Logs**
+![Real-Time Execution Logs](https://github.com/mahla-sys/-Gold-Forex-Algorithmic-System/blob/main/Screenshot%202026-06-01%20194527.png?raw=true)
 
 ### 🏗 معماری نرم‌افزار
 سیستم بر اساس معماری Event-Driven به ۴ مدیر مستقل تفکیک شده است:  
@@ -319,19 +318,22 @@ Topology Guild
 
 ---
 
-## 📚 ۶. stellaLIB | سامانه مدیریت کتابخانه
+## 📚 ۶. stellaLIB | سامانه مدیریت کتابخانه <a id="stellalib"></a>
 
 سامانه مدیریت کتابخانه با PHP خالص و PostgreSQL که با معماری سه‌لایه (Three-Layer Architecture) طراحی شده است. این پروژه بدون استفاده از فریم‌ورک توسعه داده شده و تمرکز آن بر طراحی ساختاریافته، امنیت و توسعه‌پذیری است.
 
 ### 🖼 تصاویر پروژه
-- صفحه اصلی  
-- Hero Section  
-- داشبورد مدیریت  
-- Admin Dashboard Top  
-- آمار و گزارش‌های مدیریتی  
-- Admin Dashboard Bottom  
-- فهرست کتاب‌ها  
-- Book List
+#### صفحه اصلی
+![Hero Section](https://github.com/mahla-sys/library_system/blob/main/Screenshot%202026-06-14%20222243.png?raw=true)
+
+#### داشبورد مدیریت
+![Admin Dashboard Top](https://github.com/mahla-sys/library_system/blob/main/Screenshot%202026-06-14%20223036.png?raw=true)
+
+#### آمار و گزارش‌های مدیریتی
+![Admin Dashboard Bottom](https://github.com/mahla-sys/library_system/blob/main/Screenshot%202026-06-14%20223105.png?raw=true)
+
+#### فهرست کتاب‌ها
+![Book List](https://github.com/mahla-sys/library_system/blob/main/Screenshot%202026-06-14%20223149.png?raw=true)
 
 ### 🎯 هدف پروژه
 طراحی و توسعه یک سامانه مدیریت کتابخانه با دو سطح دسترسی:  
@@ -381,7 +383,7 @@ library_system/
 
 ---
 
-## 📘 ۷. DailyFlow | سامانه مدیریت و تحلیل فعالیت‌های روزانه
+## 📘 ۷. DailyFlow | سامانه مدیریت و تحلیل فعالیت‌های روزانه <a id="dailyflow"></a>
 
 وضعیت پروژه: در حال توسعه (Phase 1)
 
@@ -407,13 +409,13 @@ DailyFlow یک نرم‌افزار مدیریت وظایف و تحلیل فعا�
 - ذخیره اطلاعات در LocalStorage و IndexedDB  
 
 ### 🖼 تصاویر پروژه
-- DailyFlow Concept UI Part 1  
-- DailyFlow Concept UI Part 2  
-- Modular Architecture UI  
+![DailyFlow Concept UI Part 1](https://github.com/mahla-sys/DailyFlow-Workflow-Orchestration/blob/main/Screenshot%202026-06-02%20130306.png?raw=true)
+![DailyFlow Concept UI Part 2](https://github.com/mahla-sys/DailyFlow-Workflow-Orchestration/blob/main/Screenshot%202026-06-02%20130334.png?raw=true)
+![Modular Architecture UI](https://github.com/mahla-sys/DailyFlow-Workflow-Orchestration/blob/main/Screenshot%202026-06-01%20175355.png?raw=true)
 
 ---
 
-## 🛠 ۸. سوابق عیب‌یابی بحرانی و اورژانس پروداکشن (Forensic Debugging)
+## 🛠 ۸. سوابق عیب‌یابی بحرانی و اورژانس پروداکشن (Forensic Debugging) <a id="forensic-cases"></a>
 
 بخش مهمی از تجربه عملیاتی من، حل بحران سیستم‌های قفل‌شده در محیط زنده سرور تحت فشار زمانی شدید و مسئولیت داده‌های پروداکشن است:
 
@@ -426,7 +428,6 @@ DailyFlow یک نرم‌افزار مدیریت وظایف و تحلیل فعا�
 ۵. باگ Silent Reload (رفرش بی‌صدای فرم سابمیت): دکمه پیش‌نمایش و ارسال آگهی بدون هیچ خطایی صفحه را رفرش می‌کرد. با راه‌اندازی اسکریپت ردیابی در mu-plugins کشف کردم قالب دکمه‌های کنترلی submit_job و نانس‌های امنیتی را حذف کرده است؛ مشکل را با تزریق مستقیم حل کردم.  
 ۶. جایگزینی تحریم نقشه با Geocoding بومی: کلید گوگل مپ به دلیل تحریم کار نمی‌کرد؛ نقشه متن‌باز Leaflet و OpenStreetMap را کالیبره کردم تا مختصات و آدرس دقیق فارسی روی سرور ذخیره شود.  
 ۷. حل آگهی‌های معلق در وضعیت پرداخت: دور زدن چرخه‌های اضافی تسویه‌حساب فروشگاهی برای آگهی‌های رایگان و انتشار خودکار (Auto-Publishing).  
-
   - نتیجه: تحویل کار با رضایت ۱۰۰٪ کارفرما و دریافت امتیاز ۵ ستاره کامل.
 
 ### پرونده دوم: عیب‌یابی پایپ‌لاین فروشگاه آنلاین پادکست و دوره‌های صوتی
@@ -453,5 +454,3 @@ DailyFlow یک نرم‌افزار مدیریت وظایف و تحلیل فعا�
   - تلگرام: @mahla_systems  
   - گیت‌هاب: github.com/mahla-sys
 
----
-! 🚀
