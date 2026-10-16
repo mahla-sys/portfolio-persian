@@ -102,16 +102,26 @@
 - **مقیاس:** حدود ۲۰,۰۰۰ خط کد کل پایپ‌لاین (بک‌اند و فرانت‌اند) + ۷۰ تست اتوماتیک با Pytest  
 - **سرعت اجرا:** تبدیل یک فرآیند ۲ ماهه کاری به ۲ هفته پیاده‌سازی فشرده با هدایت هوش مصنوعی
 
-### 🖼 نمای محیط پروژه (Screenshots)
+
+## 🖼 نمای محیط پروژه (Screenshots)
 
 #### ۱. نمای کلی داشبورد مدارس
 *پایش وضعیت فایل‌های ورودی و صف بررسی داده‌ها در هر مدرسه*
-![School Intake Dashboard](https://raw.githubusercontent.com/mahla-sys/Excel_import/main/docs/school-intake-dashboard.png)
+![School Intake Dashboard](school-intake-dashboard.png)
 
-#### ۲. مدیریت Batchها و تاریخچه آپلود
+#### ۲. موتور نگاشت هوشمند ستون‌ها (Smart Column Mapping)
+*تشخیص خودکار ستون‌های همنام (کد ملی دانش‌آموز، پدر، مادر) بر اساس موقعیت مکانی*
+![Smart Column Mapping](smart-column-mapping.png)
+
+#### ۳. اعتبارسنجی و دسته‌بندی داده‌های استخراج‌شده
+*خروجی پایپ‌لاین: تفکیک خودکار رکوردهای معتبر و ناقص بدون حذف داده خام*
+![Student Extraction Validation](student-extraction-validation.png)
+
+#### ۴. مدیریت Batchها و تاریخچه آپلود
 *رهگیری فایل‌های آپلود شده در سال‌های تحصیلی مختلف*
-![Batch Management History](https://raw.githubusercontent.com/mahla-sys/Excel_import/main/docs/batch-management-history.png)
+![Batch Management History](batch-management-history.png)
 
+---
 ### ❓ مسئله
 مدارس فایل‌های اکسل ثبت‌نام را با ساختارهای نامنظم ارسال می‌کنند: سه ستون پشت سر هم به نام «کدملی» (دانش‌آموز، پدر، مادر)، ترکیب حروف فارسی و عربی، پاک شدن صفرهای اول تلفن و کدملی، و اسامی تکراری. ورود مستقیم این فایل‌ها به سیستم اصلی، پایگاه‌داده را پر از داده‌های ناقص، کدملی‌های اشتباه و تداخل‌های هویتی می‌کرد.
 
